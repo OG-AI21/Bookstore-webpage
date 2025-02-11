@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore Catalogue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;background-color: #F4E1D2;
+            margin: 0;padding: 20px;text-align: center;}
+        header {
+            background-color: #8B5E3C;padding: 15px;
+            color: white;font-size: 22px; }
+        .search-filter-container {
+            display: flex;justify-content: center;align-items: center;
+            gap: 15px;margin: 20px auto;flex-wrap: wrap;
+        }
+        .search-filter-container input, .search-filter-container select {
+            padding: 8px;font-size: 16px;
+            border-radius: 5px;border: 1px solid #8B5E3C;}
+        .catalog-container {
+            display: grid; gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            padding: 20px;max-width: 1000px; margin: auto;}
+        .book-card {
+            background-color: #fff;transition: transform 0.3s ease-in-out;
+            border-radius: 10px;padding: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);}
+        .book-card:hover {
+            transform: scale(1.05);}
+        .book-card img {
+            width: 100%;max-width: 150px; border-radius: 5px; }
+        .book-title {
+            font-size: 18px;margin: 10px 0;
+            color: #8B5E3C;transition: color 0.3s;}
+        .book-title:hover {
+            color: #D2691E;}
+        .book-price {
+            font-size: 16px;color: #D2691E;font-weight: bold;}
+        .book-card button {
+            margin-top: 10px;padding: 8px 12px;
+            background-color: #8B5E3C; color: white;
+            border: none;cursor: pointer;
+            border-radius: 5px; transition: background 0.3s;
+        }
+        .book-card button:hover {
+            background-color: #D2691E;}
+    </style>
+</head>
+<body>
+    <header>📚 Bookstore Catalogue</header>
+    <div class="search-filter-container">
+        <input type="text" id="searchInput" placeholder="Search books..." onkeyup="filterBooks()">
+        <select id="genreFilter" onchange="filterBooks()">
+            <option value="">All Genres</option>
+            <option value="adventure">Adventure</option>
+            <option value="mystery">Mystery</option>
+            <option value="Horror">Horror</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Science fiction">Science Fiction</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Mythology">Mythology</option>
+            <option value="Spiritual">Spiritual</option>
+            <option value="Religious">Religious</option>
+            <option value="hindi Novels">Hindi Novels</option>
+            <option value="English Novels">English Novels</option>
+            <option value="Non Fiction">Non FIction</option>
+        </select>
+        <select id="priceFilter" onchange="filterBooks()">
+            <option value="">All Prices</option>
+            <option value="low">Below ₹299</option>
+            <option value="mid">Between ₹300 - ₹499</option>
+            <option value="high">Above ₹500</option>
+        </select>
+    </div>
+    <div class="catalog-container" id="bookList">
+        <div class="book-card" data-title="The Secret Seven Collection" data-genre="adventure" data-price="mid">
+            <img src="sec7.jpg" alt="Book 1">
+            <div class="book-title">The Secret Seven Collection</div>
+            <div class="book-price">₹399</div>
+            <button>Buy Now</button>
+        </div>
+        <div class="book-card" data-title="The Last watch" data-genre="mystery" data-price="low">
+            <img src="theLastWatch.jpg" alt="Book 2">
+            <div class="book-title">The Last watch</div>
+            <div class="book-price">₹229</div>
+            <button>Buy Now</button>
+        </div>
+        <div class="book-card" data-title="Star Wars: The Visual Dictionary" data-genre="Science fiction" data-price="high">
+            <img src="starwars.jpg" alt="Book 3">
+            <div class="book-title">Star Wars: The Visual Dictionary</div>
+            <div class="book-price">₹599</div>
+            <button>Buy Now</button>
+        </div>
+        <div class="book-card" data-title="The Lord Of The Rings-The Return of the King" data-genre="Fantasy" data-price="mid">
+            <img src="The Return of the King.jpg" alt="Book 4">
+            <div class="book-title">The Lord Of The Rings-The Return of the King</div>
+            <div class="book-price">₹377</div>
+            <button>Buy Now</button>
+        </div>
+    </div>
+    <script>
+        function filterBooks() {
+            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+            const genreFilter = document.getElementById("genreFilter").value;
+            const priceFilter = document.getElementById("priceFilter").value;
+            const books = document.querySelectorAll(".book-card");
+            books.forEach(book => {
+                const title = book.getAttribute("data-title").toLowerCase();
+                const genre = book.getAttribute("data-genre");
+                const price = book.getAttribute("data-price");
+                const matchesSearch = title.includes(searchInput);
+                const matchesGenre = !genreFilter || genre === genreFilter;
+                const matchesPrice = !priceFilter || price === priceFilter;
+                if (matchesSearch && matchesGenre && matchesPrice) {
+                    book.style.display = "block";} else {
+                    book.style.display = "none";}});}
+    </script>
+</body>
+</html>
